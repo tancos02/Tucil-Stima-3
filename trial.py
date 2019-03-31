@@ -13,19 +13,25 @@ def PathMaker(node) :
         node = node[2] 
     return(path)
 
+def isSafe(x,y,mat) :
+    if ((x>=0) and (y>=0) and (x<len(mat)) and (y<len(mat[0]))) :
+        return True
+    return False
+
 def BFS(x,y,mat): 
-    queue = deque( [(x,y,None)]) #create queue 
-    while len(queue)>0: #make sure there are nodes to check left 
-        node = queue.popleft() #grab the first node 
-        x = node[0] #get x and y 
+    queue = deque( [(x,y,None)])  
+    while len(queue)>0:  
+        node = queue.popleft() 
+        x = node[0] 
         y = node[1] 
-        if mat[x][y] == "3": #check if it's an exit 
-            return PathMaker(node) #if it is then return the path 
-        if (mat[x][y]!="0"): #if it's not a path, we can't try this spot 
+        if mat[x][y] == "3": 
+            return PathMaker(node) 
+        if (mat[x][y]!="0"): 
             continue 
-        mat[x][y]="2" #make this spot explored so we don't try again 
-        for i in [[x-1,y],[x+1,y],[x,y-1],[x,y+1]]: #new spots to try 
-            queue.append((i[0],i[1],node))#create the new spot, with node as the parent 
+        mat[x][y]="2" 
+        for i in [[x-1,y],[x+1,y],[x,y-1],[x,y+1]]: 
+            if (isSafe(i[0],i[1],mat)) :
+                queue.append((i[0],i[1],node))
     return [] 
 
 def MapDrawBFS(mat,path) :
