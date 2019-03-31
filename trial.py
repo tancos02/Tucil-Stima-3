@@ -49,7 +49,8 @@ def MapDrawBFS(mat,path) :
         print() 
 
 def main() :
-    fileName = "input.txt"
+    print("Input File : ")
+    fileName = input()
     mat = matrixReader(fileName)
     print("Input Maze : ")
     MapDrawBFS(mat,[])
