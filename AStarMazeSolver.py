@@ -29,16 +29,16 @@ def solveMazeAStar():
 #1 = dinding, 0 = jalan, x = visited
     path=[]
     maze = inputMatrixFromFile()
-    start = [11,0]#[1,0] #(baris,kolom) atau (y,x)
+    start = [1,0]#[1,0] #(baris,kolom) atau (y,x)
     path.append(start)
-    end = [27,40]#[27,40]#[30,30]#[1,20]#[9,10]#
+    end = [30,30]#[27,40]#[30,30]#[1,20]#[9,10]#
     maze[end[0]][end[1]] = "3"
     now = start
     maze[now[0]][now[1]] = "x"
     queue = []
     StepCount = 0 # g(n)
     while now != end:
-        StepCount+=1
+        StepCount+=10
         #check kiri
         if isSafe(now[1]-1,now[0],maze):
             if (maze[now[0]][now[1]-1] == "0")or(maze[now[0]+1][now[1]] == "3"):
@@ -46,7 +46,7 @@ def solveMazeAStar():
                 subqueue = []
                 subqueue.append(coor)
                 StepPredict = abs(now[0]-end[0])+abs(now[1]-1-end[1])#fungsi h(n) heuristik jarak y+x
-                subqueue.append(StepCount+StepPredict*10) #f(n)
+                subqueue.append(StepCount+StepPredict) #f(n)
                 queue.append(subqueue)
         #check atas
         if isSafe(now[1],now[0]-1,maze):
@@ -56,7 +56,7 @@ def solveMazeAStar():
                 subqueue = []
                 subqueue.append(coor)
                 StepPredict = abs(now[0]-1-end[0])+abs(now[1]-end[1])#fungsi h(n) heuristik jarak y+x
-                subqueue.append(StepCount+StepPredict*10) #f(n)
+                subqueue.append(StepCount+StepPredict) #f(n)
                 queue.append(subqueue)
         #check kanan
         if isSafe(now[1]+1,now[0],maze):
@@ -65,7 +65,7 @@ def solveMazeAStar():
                 subqueue = []
                 subqueue.append(coor)
                 StepPredict = abs(now[0]-end[0])+abs(now[1]+1-end[1])#fungsi h(n) heuristik jarak y+x
-                subqueue.append(StepCount+StepPredict*10) #f(n)
+                subqueue.append(StepCount+StepPredict) #f(n)
                 queue.append(subqueue)
         #check bawah
         if isSafe(now[1],now[0]+1,maze):
@@ -74,7 +74,7 @@ def solveMazeAStar():
                 subqueue = []
                 subqueue.append(coor)
                 StepPredict = abs(now[0]+1-end[0])+abs(now[1]-end[1])#fungsi h(n) heuristik jarak y+x
-                subqueue.append(StepCount+StepPredict*10) #f(n)
+                subqueue.append(StepCount+StepPredict) #f(n)
                 queue.append(subqueue)
         ########
         queue = Sort(queue)
