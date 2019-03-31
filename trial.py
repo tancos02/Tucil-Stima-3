@@ -13,17 +13,17 @@ def PathMaker(node) :
         node = node[2] 
     return(path)
 
-def BFS(x,y,Map): 
+def BFS(x,y,mat): 
     queue = deque( [(x,y,None)]) #create queue 
     while len(queue)>0: #make sure there are nodes to check left 
         node = queue.popleft() #grab the first node 
         x = node[0] #get x and y 
         y = node[1] 
-        if Map[x][y] == "3": #check if it's an exit 
+        if mat[x][y] == "3": #check if it's an exit 
             return PathMaker(node) #if it is then return the path 
-        if (Map[x][y]!="0"): #if it's not a path, we can't try this spot 
+        if (mat[x][y]!="0"): #if it's not a path, we can't try this spot 
             continue 
-        Map[x][y]="2" #make this spot explored so we don't try again 
+        mat[x][y]="2" #make this spot explored so we don't try again 
         for i in [[x-1,y],[x+1,y],[x,y-1],[x,y+1]]: #new spots to try 
             queue.append((i[0],i[1],node))#create the new spot, with node as the parent 
     return [] 
